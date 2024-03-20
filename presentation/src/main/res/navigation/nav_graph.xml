@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.presentation.home.HomeScreen"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" />
+    <fragment
+        android:id="@+id/bookmarks"
+        android:name="com.example.presentation.bookmarks.BookmarksScreen"
+        android:label="fragment_bookmarks_screen"
+        tools:layout="@layout/fragment_bookmarks_screen" />
+</navigation>
