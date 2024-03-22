@@ -10,12 +10,12 @@ class MarkImageViewHolder(
     private val clickListener: (item: ImageItem) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(imageItem: ImageItem) {
-        itemView.setOnClickListener { clickListener(imageItem) }
+    fun bind(imageItem: ImageItem) = with(binding) {
+        rootView.setOnClickListener { clickListener(imageItem) }
 
-        binding.author.text = imageItem.author
+        author.text = imageItem.author
         Glide.with(itemView.context)
             .load(imageItem.imageUrl)
-            .into(binding.image)
+            .into(image)
     }
 }

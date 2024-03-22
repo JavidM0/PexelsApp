@@ -2,18 +2,14 @@ package com.example.presentation.bookmarks
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentBookmarksScreenBinding
-import com.example.presentation.databinding.FragmentHomeScreenBinding
 import com.example.presentation.details.DetailsScreen
-import com.example.presentation.home.HomeScreenViewModel
 
 class BookmarksScreen : Fragment(R.layout.fragment_bookmarks_screen) {
 
@@ -43,10 +39,10 @@ class BookmarksScreen : Fragment(R.layout.fragment_bookmarks_screen) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
+        markImageListAdapter = null
     }
 
     companion object {
-        const val MARK_IMAGE_KEY = "key"
+        const val MARK_IMAGE_KEY = "imageKey"
     }
 }

@@ -3,10 +3,7 @@
 
     <application>
         <activity
-            android:name=".DetailsScreen"
-            android:exported="false" />
-        <activity
-            android:name="com.example.presentation.splash.SplashScreen"
+            android:name=".details.DetailsScreen"
             android:exported="false" />
     </application>
 

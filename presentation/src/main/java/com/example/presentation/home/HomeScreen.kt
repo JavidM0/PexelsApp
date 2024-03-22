@@ -13,9 +13,13 @@ import com.example.presentation.databinding.FragmentHomeScreenBinding
 import com.example.presentation.details.DetailsScreen
 import com.example.presentation.home.collections.CollectionListAdapter
 import com.example.presentation.home.images.ImageListAdapter
+import com.example.presentation.utils.bind
 import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.components.SingletonComponent
 
-@EntryPoint
+@AndroidEntryPoint
 class HomeScreen : Fragment(R.layout.fragment_home_screen) {
 
     private var imageListAdapter: ImageListAdapter? = null
@@ -27,6 +31,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        bindViewModelOutputs()
     }
 
     private fun initRecyclerView() {
@@ -52,12 +57,19 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         }
     }
 
+    private fun bindViewModelOutputs() = with(viewModel) {
+        imageModels.bind(viewLifecycleOwner) {
+            imageListAdapter?.submitList(it)
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-
+        imageListAdapter = null
+        collectionListAdapter = null
     }
 
     companion object {
-        const val IMAGE_KEY = "key"
+        const val IMAGE_KEY = "imageKey"
     }
 }

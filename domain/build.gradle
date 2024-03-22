@@ -32,11 +32,13 @@ android {
 
 dependencies {
 
-    implementation project(':data')
-
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$app_compat_version"
 
+    //Retrofit
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
     //RxJava
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+    implementation "io.reactivex.rxjava3:rxandroid:$rxjava_version"
  }

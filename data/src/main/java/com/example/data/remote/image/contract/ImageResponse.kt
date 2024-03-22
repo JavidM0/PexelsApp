@@ -1,4 +1,4 @@
-package com.example.data.remote.image.contracts
+package com.example.data.remote.image.contract
 
 import com.google.gson.annotations.SerializedName
 

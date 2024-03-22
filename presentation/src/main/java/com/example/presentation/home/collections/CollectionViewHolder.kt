@@ -8,8 +8,8 @@ class CollectionViewHolder(
     private val clickListener: (item: CollectionItem) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(collectionItem: CollectionItem) {
-        itemView.setOnClickListener { clickListener(collectionItem) }
-        binding.collection.text = collectionItem.collection
+    fun bind(collectionItem: CollectionItem) = with(binding) {
+        rootView.setOnClickListener { clickListener(collectionItem) }
+        collection.text = collectionItem.collection
     }
 }
