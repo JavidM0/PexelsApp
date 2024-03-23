@@ -10,7 +10,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentBookmarksScreenBinding
 import com.example.presentation.details.DetailsScreen
+import com.example.presentation.utils.bind
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BookmarksScreen : Fragment(R.layout.fragment_bookmarks_screen) {
 
     private var markImageListAdapter: MarkImageListAdapter? = null
@@ -21,6 +24,7 @@ class BookmarksScreen : Fragment(R.layout.fragment_bookmarks_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        bindViewModelOutputs()
     }
 
     private fun initRecyclerView() {
@@ -34,6 +38,12 @@ class BookmarksScreen : Fragment(R.layout.fragment_bookmarks_screen) {
         binding.images.run {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = markImageListAdapter
+        }
+    }
+
+    private fun bindViewModelOutputs() = with(viewModel) {
+        imageModels.bind(viewLifecycleOwner) {
+            markImageListAdapter?.submitList(it)
         }
     }
 

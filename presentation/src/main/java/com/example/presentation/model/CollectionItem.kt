@@ -1,12 +1,12 @@
-package com.example.presentation.home.collections
+package com.example.presentation.model
 
 import com.example.presentation.utils.DefaultDiffUtilItemCallback
 
-data class CollectionItem(val collection: String) {
+data class CollectionItem(val title: String) {
 
     companion object {
         val diffUtil = DefaultDiffUtilItemCallback<CollectionItem> { oldItem, newItem ->
-            oldItem.collection == newItem.collection
+            oldItem.title == newItem.title
         }
     }
 }

@@ -1,8 +1,7 @@
 package com.example.domain.image.model
 
-import com.google.gson.annotations.SerializedName
-
 data class Image(
-    @SerializedName("url") val url: String,
-    @SerializedName("photographer") val photographer: String
+    val id: Int,
+    val url: String,
+    val photographer: String
 )

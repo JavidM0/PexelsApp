@@ -1,9 +1,10 @@
 package com.example.data.remote.mapper
 
-import com.example.data.remote.image.contract.ImageResponse
+import com.example.data.remote.photos.contract.ImageResponse
 import com.example.domain.image.model.Image
 
 fun ImageResponse.toImage() = Image(
-    url = url,
+    id = id,
+    url = imageSrc.originalImageUrl,
     photographer = photographer
 )

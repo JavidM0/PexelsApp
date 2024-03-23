@@ -2,6 +2,7 @@ package com.example.presentation.home.collections
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.presentation.databinding.ItemCollectionBinding
+import com.example.presentation.model.CollectionItem
 
 class CollectionViewHolder(
     private val binding: ItemCollectionBinding,
@@ -10,6 +11,6 @@ class CollectionViewHolder(
 
     fun bind(collectionItem: CollectionItem) = with(binding) {
         rootView.setOnClickListener { clickListener(collectionItem) }
-        collection.text = collectionItem.collection
+        collection.text = collectionItem.title
     }
 }

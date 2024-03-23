@@ -1,9 +1,10 @@
 package com.example.presentation.utils
 
 import androidx.lifecycle.ViewModel
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.Completable
+import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
 open class RxViewModel : ViewModel() {
@@ -22,10 +23,22 @@ open class RxViewModel : ViewModel() {
 
     fun <T : Any> Single<T>.subscribeByViewModel(
         onError: (Throwable) -> Unit = Timber::e,
-        onNext: (T) -> Unit = {}
+        onSuccess: (T) -> Unit = {}
     ): Disposable {
         return this
-            .subscribe(onNext)
+            .subscribe(
+                onSuccess,
+                onError,
+            )
             .bindToLifecycle()
     }
+
+    fun Completable.subscribeByViewModel(
+        onError: (Throwable) -> Unit = Timber::e,
+        onComplete: () -> Unit = {},
+    ): Disposable {
+        return this.subscribe(onComplete, onError)
+            .bindToLifecycle()
+    }
+
 }

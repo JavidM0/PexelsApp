@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.presentation.databinding.ItemCollectionBinding
+import com.example.presentation.model.CollectionItem
 
 class CollectionListAdapter(
     private val clickListener: (item: CollectionItem) -> Unit

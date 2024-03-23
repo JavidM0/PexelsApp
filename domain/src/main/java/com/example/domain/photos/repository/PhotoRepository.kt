@@ -1,7 +1,7 @@
 package com.example.domain.photos.repository
 
 import com.example.domain.photos.model.Photo
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 
 interface PhotoRepository {
 

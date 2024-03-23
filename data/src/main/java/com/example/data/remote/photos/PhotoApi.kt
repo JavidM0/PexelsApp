@@ -1,15 +1,15 @@
 package com.example.data.remote.photos
 
 import com.example.data.remote.photos.contract.PhotoResponse
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Headers
-import retrofit2.http.Query
+
+private const val API_KEY = "DwUSU1b7Mfcg0JvQ3XxvyAXMdUjudprxTjrmwPzWj0dRiC6alumNmuDN"
 
 interface PhotoApi {
 
-    @Headers("Authorization: DwUSU1b7Mfcg0JvQ3XxvyAXMdUjudprxTjrmwPzWj0dRiC6alumNmuDN")
-    @GET("photos/curated")
+    @Headers("Authorization: $API_KEY")
+    @GET("v1/curated")
     fun getPhotos(): Single<PhotoResponse>
 }

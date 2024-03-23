@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.android'
 }
 
@@ -21,12 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
@@ -43,10 +42,16 @@ dependencies {
     //Retrofit
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 
     //Okhttp
     api "com.squareup.okhttp3:okhttp:$okhttp_version"
 
     //RxJava
-    implementation "io.reactivex.rxjava3:rxandroid:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxjava_version"
+
+    //Room
+    api "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    api "androidx.room:room-rxjava2:$room_version"
 }
