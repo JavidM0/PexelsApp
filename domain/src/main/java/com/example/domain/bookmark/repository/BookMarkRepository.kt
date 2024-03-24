@@ -6,4 +6,5 @@ interface BookMarkRepository {
 
     fun getBookMarks(): List<Image>
     fun saveBookMarks(image: Image)
+    fun getBookMarkWithId(id: Int): Image?
 }

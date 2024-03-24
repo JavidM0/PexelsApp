@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentDetailsScreenBinding
 import com.example.presentation.model.ImageItem
+import com.example.presentation.utils.bind
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,6 +27,8 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
         super.onViewCreated(view, savedInstanceState)
         setUpView()
         bindViewModelInputs()
+        bindViewModelOutputs()
+        viewModel.checkFavorite(checkNotNull(item?.id))
     }
 
     private fun setUpView() {
@@ -42,6 +45,18 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
         }
         binding.actionBack.setOnClickListener {
             findNavController().popBackStack()
+        }
+    }
+
+    private fun bindViewModelOutputs() = with(viewModel) {
+        isFavorite.bind(viewLifecycleOwner) {
+            val icon = if (it) {
+                R.drawable.bookmark_button_active
+            } else {
+                R.drawable.bookmark_button_inactive
+            }
+            binding.actionAddFavorites.setImageResource(icon)
+            binding.actionAddFavorites.isClickable = !it
         }
     }
 }

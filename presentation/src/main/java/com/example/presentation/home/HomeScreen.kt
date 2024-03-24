@@ -44,6 +44,11 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     }
 
     private fun setupCollectionsList() = with(binding.collections) {
+        addItemDecoration(
+            SpacesItemDecoration(
+                ITEM_DECORATOR_SPACE
+            )
+        )
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter = collectionListAdapter
     }

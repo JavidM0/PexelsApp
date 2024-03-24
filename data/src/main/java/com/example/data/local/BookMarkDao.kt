@@ -10,6 +10,9 @@ interface BookMarkDao {
     @Insert
     fun insertBookMark(entity: BookMarkEntity)
 
+    @Query("SELECT * FROM $BOOK_MARK_TABLE_NAME WHERE uid = :id ")
+    fun getImageWithId(id: Int): BookMarkEntity?
+
     @Query("SELECT * FROM $BOOK_MARK_TABLE_NAME")
     fun getAllBookMarks(): List<BookMarkEntity>
 }

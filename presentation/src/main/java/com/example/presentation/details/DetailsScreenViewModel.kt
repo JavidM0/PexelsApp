@@ -7,6 +7,7 @@ import com.example.presentation.utils.RxViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,8 +15,18 @@ class DetailsScreenViewModel @Inject constructor(
     private val bookMarkRepository: BookMarkRepository,
 ) : RxViewModel() {
 
+    val isFavorite: BehaviorSubject<Boolean> = BehaviorSubject.create()
+
+    fun checkFavorite(imageId: Int) {
+        Completable.create { emitter ->
+            isFavorite.onNext(bookMarkRepository.getBookMarkWithId(imageId) != null)
+            emitter.onComplete()
+        }.subscribeOn(Schedulers.io()).subscribeByViewModel()
+    }
+
     fun saveBookMarks(imageItem: ImageItem) {
         Completable.create { emitter ->
+            isFavorite.onNext(true)
             bookMarkRepository.saveBookMarks(
                 Image(
                     id = imageItem.id,

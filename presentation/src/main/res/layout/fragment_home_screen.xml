@@ -24,11 +24,18 @@
         app:queryBackground="@android:color/transparent"
         app:searchIcon="@drawable/search_icon" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/collections"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal" />
+
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressbar"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:layout_marginTop="12dp"
         app:trackColor="@color/container"
         app:trackCornerRadius="20dp"
         app:trackThickness="4dp"
@@ -38,18 +45,9 @@
         android:visibility="invisible"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/collections"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal" />
-
-    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/images"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
         android:orientation="vertical" />
 </LinearLayout>

@@ -16,4 +16,8 @@ class BookMarkRepositoryImpl(
 
     override fun saveBookMarks(image: Image) =
         bookMarkDao.insertBookMark(image.toEntity())
+
+    override fun getBookMarkWithId(id: Int): Image? {
+        return bookMarkDao.getImageWithId(id)?.toImage()
+    }
 }

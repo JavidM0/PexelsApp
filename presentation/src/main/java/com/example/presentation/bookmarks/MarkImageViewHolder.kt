@@ -2,6 +2,8 @@ package com.example.presentation.bookmarks
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.presentation.R
 import com.example.presentation.databinding.ItemMarkBinding
 import com.example.presentation.model.ImageItem
 
@@ -16,6 +18,7 @@ class MarkImageViewHolder(
         author.text = imageItem.author
         Glide.with(itemView.context)
             .load(imageItem.imageUrl)
+            .apply(RequestOptions().placeholder(R.drawable.place_holder))
             .into(image)
     }
 }
