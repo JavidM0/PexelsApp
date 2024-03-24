@@ -1,15 +1,16 @@
 <resources>
     <!-- Base application theme. -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.PexelsApp</item>
+        <item name="windowSplashScreenBackground">@color/red</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/animated_splash_logo</item>
+    </style>
+
     <style name="Theme.PexelsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/red</item>
         <item name="android:statusBarColor">@color/background</item>
         <item name="backgroundColor">@color/white</item>
         <item name="colorAccent">@color/red</item>
-    </style>
-
-    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/red</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
     </style>
 
     <style name="roundedImageView" parent="">

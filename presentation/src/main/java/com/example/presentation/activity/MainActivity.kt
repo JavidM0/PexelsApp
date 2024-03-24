@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         get() = (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         installSplashScreen()
+        super.onCreate(savedInstanceState)
         binding.bottomNavigation.setupWithNavController(navController)
         binding.bottomNavigation.itemIconTintList = null
         updateBottomNavVisibility()
