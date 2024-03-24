@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="ic_launcher_background">@color/red</color>
+
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FFBB1020</color>
     <color name="lightest_gray">#FFF3F5F9</color>
