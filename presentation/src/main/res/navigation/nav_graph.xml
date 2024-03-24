@@ -9,10 +9,28 @@
         android:id="@+id/home"
         android:name="com.example.presentation.home.HomeScreen"
         android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen" />
+        tools:layout="@layout/fragment_home_screen">
+        <action
+            android:id="@+id/action_home_to_details"
+            app:destination="@id/details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/details"
+        android:name="com.example.presentation.details.DetailsScreen"
+        android:label="fragment_details_screen"
+        tools:layout="@layout/fragment_details_screen">
+        <argument
+            android:name="imageItem"
+            app:argType="com.example.presentation.model.ImageItem" />
+    </fragment>
     <fragment
         android:id="@+id/bookmarks"
         android:name="com.example.presentation.bookmarks.BookmarksScreen"
         android:label="fragment_bookmarks_screen"
-        tools:layout="@layout/fragment_bookmarks_screen" />
+        tools:layout="@layout/fragment_bookmarks_screen">
+        <action
+            android:id="@+id/action_bookmarks_to_details"
+            app:destination="@id/details" />
+    </fragment>
 </navigation>

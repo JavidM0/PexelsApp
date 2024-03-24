@@ -1,8 +1,10 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.PexelsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/red</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="colorAccent">@color/lightest_gray</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
@@ -10,8 +12,8 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
     </style>
 
-    <style name="ThemeOverlay.SearchView" parent="">
-        <item name="android:editTextColor">@color/black</item>
-        <item name="android:textColorHint">@color/dark_gray</item>
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSize">12dp</item>
     </style>
 </resources>

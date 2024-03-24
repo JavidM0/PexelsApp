@@ -1,18 +1,18 @@
 package com.example.presentation.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentHomeScreenBinding
-import com.example.presentation.details.DetailsScreen
 import com.example.presentation.home.collections.CollectionListAdapter
 import com.example.presentation.home.images.ImageListAdapter
+import com.example.presentation.utils.SpacesItemDecoration
 import com.example.presentation.utils.bind
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,6 +28,8 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        setupCollectionsList()
+        setupImagesList()
         bindViewModelOutputs()
     }
 
@@ -37,21 +39,23 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         }
 
         imageListAdapter = ImageListAdapter { image ->
-            val intent = Intent(requireContext(), DetailsScreen::class.java).also {
-                it.putExtra(IMAGE_KEY, image)
-            }
-            startActivity(intent)
+            findNavController().navigate(HomeScreenDirections.actionHomeToDetails(image))
         }
+    }
 
-        binding.collections.run {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = collectionListAdapter
-        }
+    private fun setupCollectionsList() = with(binding.collections) {
+        layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        adapter = collectionListAdapter
+    }
 
-        binding.images.run {
-            layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = imageListAdapter
-        }
+    private fun setupImagesList() = with(binding.images) {
+        addItemDecoration(
+            SpacesItemDecoration(
+                ITEM_DECORATOR_SPACE
+            )
+        )
+        layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        adapter = imageListAdapter
     }
 
     private fun bindViewModelOutputs() = with(viewModel) {
@@ -71,6 +75,6 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
     }
 
     companion object {
-        const val IMAGE_KEY = "imageKey"
+        private const val ITEM_DECORATOR_SPACE = 20
     }
 }

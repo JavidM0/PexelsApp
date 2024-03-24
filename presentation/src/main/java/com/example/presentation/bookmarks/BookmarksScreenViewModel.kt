@@ -16,11 +16,7 @@ class BookmarksScreenViewModel @Inject constructor(private val bookMarkRepositor
 
     val imageModels: BehaviorSubject<List<ImageItem>> = BehaviorSubject.create()
 
-    init {
-        getBookMarks()
-    }
-
-    private fun getBookMarks() {
+    fun getBookMarks() {
         Completable.create { emitter ->
             bookMarkRepository.getBookMarks().map {
                 it.toImageItem()

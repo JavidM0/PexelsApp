@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
-
     android:theme="@style/Theme.App.Starting"
-
     tools:context="com.example.presentation.activity.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -24,7 +23,8 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="@color/white"
+        app:backgroundTint="@color/background"
+        app:itemBackground="@drawable/bottom_nav_bar_item"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_navigation_menu" />
 

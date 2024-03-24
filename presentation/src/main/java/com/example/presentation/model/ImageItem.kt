@@ -9,7 +9,7 @@ data class ImageItem(val id: Int, val imageUrl: String, val author: String) : Pa
 
     companion object {
         val diffUtil = DefaultDiffUtilItemCallback<ImageItem> { oldItem, newItem ->
-            oldItem.imageUrl == newItem.imageUrl
+            oldItem.id == newItem.id
         }
     }
 }

@@ -1,15 +1,17 @@
 package com.example.presentation.bookmarks
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentBookmarksScreenBinding
-import com.example.presentation.details.DetailsScreen
+import com.example.presentation.home.HomeScreen
+import com.example.presentation.utils.SpacesItemDecoration
 import com.example.presentation.utils.bind
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,22 +25,26 @@ class BookmarksScreen : Fragment(R.layout.fragment_bookmarks_screen) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getBookMarks()
         initRecyclerView()
+        setupImagesList()
         bindViewModelOutputs()
     }
 
     private fun initRecyclerView() {
         markImageListAdapter = MarkImageListAdapter { image ->
-            val intent = Intent(requireContext(), DetailsScreen::class.java).also {
-                it.putExtra(MARK_IMAGE_KEY, image)
-            }
-            startActivity(intent)
+            findNavController().navigate(BookmarksScreenDirections.actionBookmarksToDetails(image))
         }
+    }
 
-        binding.images.run {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = markImageListAdapter
-        }
+    private fun setupImagesList() = with(binding.images) {
+        addItemDecoration(
+            SpacesItemDecoration(
+                ITEM_DECORATOR_SPACE
+            )
+        )
+        layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        adapter = markImageListAdapter
     }
 
     private fun bindViewModelOutputs() = with(viewModel) {
@@ -53,6 +59,6 @@ class BookmarksScreen : Fragment(R.layout.fragment_bookmarks_screen) {
     }
 
     companion object {
-        const val MARK_IMAGE_KEY = "imageKey"
+        private const val ITEM_DECORATOR_SPACE = 20
     }
 }

@@ -1,41 +1,38 @@
 package com.example.presentation.details
 
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.presentation.R
-import com.example.presentation.databinding.ActivityDetailsScreenBinding
+import com.example.presentation.databinding.FragmentDetailsScreenBinding
 import com.example.presentation.model.ImageItem
+import dagger.hilt.android.AndroidEntryPoint
 
-class DetailsScreen : AppCompatActivity(R.layout.activity_details_screen) {
+@AndroidEntryPoint
+class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
 
-    private val binding by viewBinding(ActivityDetailsScreenBinding::bind)
+    private val binding by viewBinding(FragmentDetailsScreenBinding::bind)
     private val viewModel: DetailsScreenViewModel by viewModels()
 
+    private val args: DetailsScreenArgs by navArgs()
     private var item: ImageItem? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setUpView()
         bindViewModelInputs()
     }
 
     private fun setUpView() {
-        val intent = Intent()
-        val imageItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(IMAGE_KEY, ImageItem::class.java)
-        } else {
-            intent.getParcelableExtra(IMAGE_KEY)
-        }
-
-        item = imageItem
-        binding.author.text = imageItem?.author
+        item = args.imageItem
+        binding.author.text = item?.author
         Glide.with(this)
-            .load(imageItem?.imageUrl)
+            .load(item?.imageUrl)
             .into(binding.image)
     }
 
@@ -43,9 +40,8 @@ class DetailsScreen : AppCompatActivity(R.layout.activity_details_screen) {
         binding.actionAddFavorites.setOnClickListener {
             viewModel.saveBookMarks(checkNotNull(item))
         }
-    }
-
-    companion object {
-        const val IMAGE_KEY = "imageKey"
+        binding.actionBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 }

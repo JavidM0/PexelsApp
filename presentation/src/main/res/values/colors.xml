@@ -2,9 +2,13 @@
 <resources>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FFBB1020</color>
-    <color name="gray">#FFF3F5F9</color>
-    <color name="dark_gray">#FF868686</color>
-    <color name="black">#FF1E1E1E</color>
+    <color name="lightest_gray">#FFF3F5F9</color>
+    <color name="light_gray">#FFB5B5B5</color>
+    <color name="dark_gray">#FF393939</color>
+    <color name="darkest_gray">#FF1E1E1E</color>
+    <color name="gray">#FF868686</color>
     <color name="transparent_black">#66000000</color>
 
+    <color name="background">@color/white</color>
+    <color name="container">@color/lightest_gray</color>
 </resources>

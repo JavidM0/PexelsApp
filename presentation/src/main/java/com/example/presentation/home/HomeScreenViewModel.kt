@@ -1,6 +1,5 @@
 package com.example.presentation.home
 
-import com.example.domain.categories.model.Category
 import com.example.domain.categories.repository.CollectionRepository
 import com.example.domain.collection.model.Collection
 import com.example.domain.photos.model.Photo
@@ -19,8 +18,7 @@ import javax.inject.Inject
 class HomeScreenViewModel @Inject constructor(
     private val photoRepository: PhotoRepository,
     private val collectionRepository: CollectionRepository
-) :
-    RxViewModel() {
+) : RxViewModel() {
 
     val imageModels: BehaviorSubject<List<ImageItem>> = BehaviorSubject.create()
     val collectionModels: BehaviorSubject<List<CollectionItem>> = BehaviorSubject.create()
