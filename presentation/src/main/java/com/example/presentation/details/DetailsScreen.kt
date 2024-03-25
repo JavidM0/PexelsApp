@@ -1,7 +1,13 @@
 package com.example.presentation.details
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +29,14 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
     private val args: DetailsScreenArgs by navArgs()
     private var item: ImageItem? = null
 
+    private var requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            registerStorageStateListener()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpView()
@@ -41,13 +55,18 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
             .into(binding.image)
     }
 
-    private fun bindViewModelInputs() {
-        binding.actionAddFavorites.setOnClickListener {
+    private fun bindViewModelInputs() = with(binding) {
+        actionAddFavorites.setOnClickListener {
             viewModel.saveBookMarks(checkNotNull(item))
         }
-        binding.actionBack.setOnClickListener {
+        actionBack.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        actionDownload.setOnClickListener {
+            registerStorageStateListener()
+        }
+
     }
 
     private fun bindViewModelOutputs() = with(viewModel) {
@@ -60,5 +79,40 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
             binding.actionAddFavorites.setImageResource(icon)
             binding.actionAddFavorites.isClickable = !it
         }
+
+        isError.bind(viewLifecycleOwner) {
+            showToast(it)
+        }
     }
+
+    private fun isPermissionGranted(): Boolean = checkSelfPermission(
+        requireContext(),
+        getStoragePermission()
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun registerStorageStateListener() {
+        if (isPermissionGranted()) {
+            item?.let {
+                viewModel.onDownloadClicked(it)
+            }
+        } else {
+            requestPermissionLauncher.launch(getStoragePermission())
+        }
+    }
+
+    private fun showToast(isError: Boolean) {
+        val message = if (isError) {
+            R.string.dowland_error
+        } else {
+            R.string.photo_dowlanded
+        }
+        Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getStoragePermission(): String =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Manifest.permission.READ_MEDIA_IMAGES
+        } else {
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        }
 }

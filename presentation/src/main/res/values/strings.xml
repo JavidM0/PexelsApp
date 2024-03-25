@@ -10,5 +10,7 @@
     <string name="not_saved_error">You haven\'t saved anything yet</string>
     <string name="explore">Explore</string>
     <string name="try_again">Try Again</string>
+    <string name="photo_dowlanded">Photo downloaded successfully</string>
+    <string name="dowland_error">Failed to download photo</string>
 
 </resources>

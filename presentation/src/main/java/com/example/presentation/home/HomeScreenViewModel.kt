@@ -11,6 +11,7 @@ import com.example.presentation.model.ImageItem
 import com.example.presentation.utils.RxViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.net.UnknownHostException
@@ -25,13 +26,21 @@ class HomeScreenViewModel @Inject constructor(
     val imageModels: BehaviorSubject<List<ImageItem>> = BehaviorSubject.create()
     val collectionModels: BehaviorSubject<List<CollectionItem>> = BehaviorSubject.create()
     val isError: BehaviorSubject<Boolean> = BehaviorSubject.create()
+    val isLoading: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     init {
         getImages()
         getCollections()
     }
 
+    fun onCollectionSelected(collection: CollectionItem) {
+        collectionModels.value?.let {
+            collectionModels.onNext(selectItem(it, collection))
+        }
+    }
+
     fun onTextChanged(text: String?) {
+        checkSearchQuery(text)
         if (text.isNullOrBlank()) {
             getImages()
         } else {
@@ -62,18 +71,41 @@ class HomeScreenViewModel @Inject constructor(
             }
     }
 
-    private fun Single<Photo>.handlePhotoResult() = map(::mapImageToUiModel)
-        .subscribeOn(Schedulers.io())
-        .subscribeByViewModel<List<ImageItem>>(
-            onError = {
-                if (it is UnknownHostException) {
-                    isError.onNext(true)
+    private fun Single<Photo>.handlePhotoResult(): Disposable {
+        isLoading.onNext(true)
+        return map(::mapImageToUiModel)
+            .subscribeOn(Schedulers.io())
+            .subscribeByViewModel<List<ImageItem>>(
+                onError = {
+                    if (it is UnknownHostException) {
+                        isError.onNext(true)
+                        isLoading.onNext(false)
+                    }
                 }
+            ) {
+                isError.onNext(false)
+                isLoading.onNext(false)
+                imageModels.onNext(it)
             }
-        ) {
-            isError.onNext(false)
-            imageModels.onNext(it)
+    }
+
+    private fun checkSearchQuery(query: String?) {
+        collectionModels.value?.let { collections ->
+            val collection = collections.find { it.title == query }
+            val collectionItems = if (collection == null) {
+                clearSelectedItems(collections)
+            } else {
+                selectItem(collections, collection)
+            }
+            collectionModels.onNext(collectionItems)
         }
+    }
+
+    private fun selectItem(items: List<CollectionItem>, item: CollectionItem) =
+        items.map { it.copy(isSelected = it == item) }
+
+    private fun clearSelectedItems(items: List<CollectionItem>) =
+        items.map { it.copy(isSelected = false) }
 
 
     private fun mapCollectionToUiModel(response: List<Collection>): List<CollectionItem> {

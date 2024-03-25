@@ -38,6 +38,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
 
     private fun initRecyclerView() {
         collectionListAdapter = CollectionListAdapter { collection ->
+            viewModel.onCollectionSelected(collection)
             binding.searchView.setQuery(collection.title, false)
         }
 
@@ -72,6 +73,10 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
             viewModel.getCollections()
         }
 
+        actionExplore.setOnClickListener {
+            viewModel.getImages()
+        }
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
@@ -92,6 +97,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         imageModels.bind(viewLifecycleOwner) { imageList ->
             binding.notFoundError.isVisible = imageList.isEmpty()
             binding.actionExplore.isVisible = imageList.isEmpty()
+            binding.images.isVisible = imageList.isNotEmpty()
             imageListAdapter?.submitList(imageList)
         }
 
@@ -99,6 +105,10 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
             binding.noConnectionError.isVisible = it
             binding.actionTryAgain.isVisible = it
             binding.images.isVisible = !it
+        }
+
+        isLoading.bind(viewLifecycleOwner) {
+            binding.progressbar.isVisible = it
         }
     }
 

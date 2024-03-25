@@ -12,9 +12,16 @@ class ImageViewHolder(
     private val clickListener: (item: ImageItem) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(imageItem: ImageItem) = with(binding) {
-        rootView.setOnClickListener { clickListener(imageItem) }
+    private var imageModel: ImageItem? = null
 
+    init {
+        itemView.setOnClickListener {
+            clickListener(imageModel ?: return@setOnClickListener)
+        }
+    }
+
+    fun bind(imageItem: ImageItem) = with(binding) {
+        imageModel = imageItem
         Glide.with(itemView.context)
             .load(imageItem.imageUrl)
             .apply(RequestOptions().placeholder(R.drawable.placeholder))
