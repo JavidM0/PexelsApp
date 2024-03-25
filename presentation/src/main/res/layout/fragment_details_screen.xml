@@ -15,20 +15,22 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_rectangle"
-            android:backgroundTint="@color/lightest_gray"
+            android:backgroundTint="@color/container"
             android:scaleType="centerInside"
             android:src="@drawable/back_icon"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/icon" />
 
         <TextView
             android:id="@+id/author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="121dp"
-            android:textColor="@color/dark_gray"
+            android:fontFamily="@font/mulish_bold"
+            android:textColor="@color/text"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/action_back"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/action_back" />
 
@@ -37,14 +39,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.88" />
+            app:layout_constraintGuide_percent="0.88"
+            app:layout_constraintTop_toBottomOf="@id/image" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/action_back"
             app:shapeAppearanceOverlay="@style/roundedImageView" />
@@ -55,11 +57,12 @@
             android:layout_height="48dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/bg_oval"
-            android:backgroundTint="@color/lightest_gray"
+            android:backgroundTint="@color/container"
+            android:fontFamily="@font/mulish_semi_bold"
             android:gravity="start|center"
             android:paddingStart="72dp"
             android:text="@string/download"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/text"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline" />
@@ -80,7 +83,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/bg_circle"
-            android:backgroundTint="@color/lightest_gray"
+            android:backgroundTint="@color/container"
             android:scaleType="centerInside"
             android:src="@drawable/add_icon"
             app:layout_constraintEnd_toEndOf="parent"

@@ -6,4 +6,5 @@ import io.reactivex.Single
 interface PhotoRepository {
 
     fun getImages(): Single<Photo>
+    fun getImagesByCollection(collection: String): Single<Photo>
 }

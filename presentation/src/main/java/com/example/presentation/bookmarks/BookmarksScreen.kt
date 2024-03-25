@@ -2,15 +2,14 @@ package com.example.presentation.bookmarks
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentBookmarksScreenBinding
-import com.example.presentation.home.HomeScreen
 import com.example.presentation.utils.SpacesItemDecoration
 import com.example.presentation.utils.bind
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +28,7 @@ class BookmarksScreen : Fragment(R.layout.fragment_bookmarks_screen) {
         initRecyclerView()
         setupImagesList()
         bindViewModelOutputs()
+        bindViewModelInputs()
     }
 
     private fun initRecyclerView() {
@@ -47,8 +47,16 @@ class BookmarksScreen : Fragment(R.layout.fragment_bookmarks_screen) {
         adapter = markImageListAdapter
     }
 
+    private fun bindViewModelInputs() = with(binding) {
+        actionExplore.setOnClickListener {
+            //TODO navigate to Home screen
+        }
+    }
+
     private fun bindViewModelOutputs() = with(viewModel) {
         imageModels.bind(viewLifecycleOwner) {
+            binding.errorTitle.isVisible = it.isEmpty()
+            binding.actionExplore.isVisible = it.isEmpty()
             markImageListAdapter?.submitList(it)
         }
     }

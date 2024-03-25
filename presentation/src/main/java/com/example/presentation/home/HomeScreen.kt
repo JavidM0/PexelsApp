@@ -2,6 +2,8 @@ package com.example.presentation.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -31,11 +33,12 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         setupCollectionsList()
         setupImagesList()
         bindViewModelOutputs()
+        bindViewModelInputs()
     }
 
     private fun initRecyclerView() {
         collectionListAdapter = CollectionListAdapter { collection ->
-
+            binding.searchView.setQuery(collection.title, false)
         }
 
         imageListAdapter = ImageListAdapter { image ->
@@ -63,13 +66,39 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         adapter = imageListAdapter
     }
 
+    private fun bindViewModelInputs() = with(binding) {
+        actionTryAgain.setOnClickListener {
+            viewModel.getImages()
+            viewModel.getCollections()
+        }
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(text: String?): Boolean {
+                viewModel.onTextChanged(text)
+                return false
+            }
+        })
+    }
+
     private fun bindViewModelOutputs() = with(viewModel) {
         collectionModels.bind(viewLifecycleOwner) {
             collectionListAdapter?.submitList(it)
         }
 
-        imageModels.bind(viewLifecycleOwner) {
-            imageListAdapter?.submitList(it)
+        imageModels.bind(viewLifecycleOwner) { imageList ->
+            binding.notFoundError.isVisible = imageList.isEmpty()
+            binding.actionExplore.isVisible = imageList.isEmpty()
+            imageListAdapter?.submitList(imageList)
+        }
+
+        isError.bind(viewLifecycleOwner) {
+            binding.noConnectionError.isVisible = it
+            binding.actionTryAgain.isVisible = it
+            binding.images.isVisible = !it
         }
     }
 

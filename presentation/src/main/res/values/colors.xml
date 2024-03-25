@@ -13,4 +13,6 @@
 
     <color name="background">@color/white</color>
     <color name="container">@color/lightest_gray</color>
+    <color name="text">@color/darkest_gray</color>
+    <color name="icon">@color/darkest_gray</color>
 </resources>

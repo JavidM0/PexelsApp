@@ -6,5 +6,9 @@
     <string name="title_bookmarks">Bookmarks</string>
     <string name="search">Search</string>
     <string name="download">Download</string>
+    <string name="not_found_error">No results found</string>
+    <string name="not_saved_error">You haven\'t saved anything yet</string>
+    <string name="explore">Explore</string>
+    <string name="try_again">Try Again</string>
 
 </resources>

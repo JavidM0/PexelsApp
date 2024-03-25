@@ -18,7 +18,7 @@ class MarkImageViewHolder(
         author.text = imageItem.author
         Glide.with(itemView.context)
             .load(imageItem.imageUrl)
-            .apply(RequestOptions().placeholder(R.drawable.place_holder))
+            .apply(RequestOptions().placeholder(R.drawable.placeholder))
             .into(image)
     }
 }

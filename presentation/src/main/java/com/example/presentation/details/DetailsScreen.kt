@@ -28,7 +28,9 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
         setUpView()
         bindViewModelInputs()
         bindViewModelOutputs()
-        viewModel.checkFavorite(checkNotNull(item?.id))
+        item?.let {
+            viewModel.checkFavorite(it.id)
+        }
     }
 
     private fun setUpView() {

@@ -2,4 +2,6 @@
 <resources>
     <color name="background">@color/darkest_gray</color>
     <color name="container">@color/dark_gray</color>
+    <color name="text">@color/white</color>
+    <color name="icon">@color/white</color>
 </resources>
