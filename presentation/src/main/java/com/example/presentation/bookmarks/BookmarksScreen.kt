@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentBookmarksScreenBinding
-import com.example.presentation.utils.SpacesItemDecoration
+import com.example.presentation.utils.ImagesSpacesItemDecoration
 import com.example.presentation.utils.bind
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +39,7 @@ class BookmarksScreen : Fragment(R.layout.fragment_bookmarks_screen) {
 
     private fun setupImagesList() = with(binding.images) {
         addItemDecoration(
-            SpacesItemDecoration(
+            ImagesSpacesItemDecoration(
                 ITEM_DECORATOR_SPACE
             )
         )

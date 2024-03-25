@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_home_screen">
         <action
             android:id="@+id/action_home_to_details"
-            app:destination="@id/details" />
+            app:destination="@id/details"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -31,6 +35,10 @@
         tools:layout="@layout/fragment_bookmarks_screen">
         <action
             android:id="@+id/action_bookmarks_to_details"
-            app:destination="@id/details" />
+            app:destination="@id/details"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
     </fragment>
 </navigation>

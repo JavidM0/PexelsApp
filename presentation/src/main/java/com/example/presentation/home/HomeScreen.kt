@@ -14,7 +14,8 @@ import com.example.presentation.R
 import com.example.presentation.databinding.FragmentHomeScreenBinding
 import com.example.presentation.home.collections.CollectionListAdapter
 import com.example.presentation.home.images.ImageListAdapter
-import com.example.presentation.utils.SpacesItemDecoration
+import com.example.presentation.utils.CollectionsSpacesItemDecoration
+import com.example.presentation.utils.ImagesSpacesItemDecoration
 import com.example.presentation.utils.bind
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,8 +50,9 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
 
     private fun setupCollectionsList() = with(binding.collections) {
         addItemDecoration(
-            SpacesItemDecoration(
-                ITEM_DECORATOR_SPACE
+            CollectionsSpacesItemDecoration(
+                ITEM_DECORATOR_SPACE,
+                ITEM_DECORATOR_SPACE_LEFT
             )
         )
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -59,7 +61,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
 
     private fun setupImagesList() = with(binding.images) {
         addItemDecoration(
-            SpacesItemDecoration(
+            ImagesSpacesItemDecoration(
                 ITEM_DECORATOR_SPACE
             )
         )
@@ -120,5 +122,6 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
 
     companion object {
         private const val ITEM_DECORATOR_SPACE = 20
+        private const val ITEM_DECORATOR_SPACE_LEFT = 70
     }
 }
