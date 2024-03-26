@@ -2,6 +2,7 @@ package com.example.presentation.activity
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
@@ -10,13 +11,14 @@ import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.presentation.utils.bind
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val binding by viewBinding(ActivityMainBinding::bind)
+    private val viewModel: ItemViewModel by viewModels()
 
     private val navController: NavController
         get() = (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
@@ -27,6 +29,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         binding.bottomNavigation.setupWithNavController(navController)
         binding.bottomNavigation.itemIconTintList = null
         updateBottomNavVisibility()
+        bindViewModelOutputs()
+    }
+
+    private fun bindViewModelOutputs() {
+        viewModel.selectedItem.bind(this) {
+            binding.bottomNavigation.selectedItemId = it.navId
+        }
     }
 
     private fun updateBottomNavVisibility() {
